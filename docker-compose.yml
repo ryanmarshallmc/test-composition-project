@@ -29,7 +29,7 @@ services:
       dockerfile: apps/client/Dockerfile
       args:
         # Baked at build time — must match the server hostname for the target env
-        VITE_API_URL: https://api.test.composition.sh
+        VITE_API_URL: https://api.staging.test.composition.sh
     ports: ["5173:5173"]
     x-composition:
       watch:
