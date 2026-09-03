@@ -1,18 +1,49 @@
+name: test-composition
+
 services:
   server:
     build:
       context: .
       dockerfile: apps/server/Dockerfile
-    ports:
-      - '3000:3000'
+    ports: ["3000:3000"]
+    x-composition:
+      watch:
+        - apps/server/**
+      environments:
+        staging:
+          hostname: api.test-composition.staging.sharingexcess.com
+          scale:
+            instances: { min: 0, max: 1 }
+            cpu: "0.5"
+            memory: 512Mi
+        production:
+          hostname: api.test-composition.sharingexcess.com
+          scale:
+            instances: { min: 1, max: 1 }
+            cpu: "0.5"
+            memory: 512Mi
 
   client:
     build:
       context: .
       dockerfile: apps/client/Dockerfile
       args:
-        VITE_API_URL: http://localhost:3000
-    ports:
-      - '5173:5173'
-    depends_on:
-      - server
+        # Baked at build time — must match the server hostname for the target env
+        VITE_API_URL: https://api.test-composition.staging.sharingexcess.com
+    ports: ["5173:5173"]
+    x-composition:
+      watch:
+        - apps/client/**
+      environments:
+        staging:
+          hostname: test-composition.staging.sharingexcess.com
+          scale:
+            instances: { min: 0, max: 1 }
+            cpu: "0.5"
+            memory: 512Mi
+        production:
+          hostname: test-composition.sharingexcess.com
+          scale:
+            instances: { min: 1, max: 1 }
+            cpu: "0.5"
+            memory: 512Mi
