@@ -11,13 +11,13 @@ services:
         - apps/server/**
       environments:
         staging:
-          hostname: api.test-composition.staging.sharingexcess.com
+          hostname: api.staging.test.composition.sh
           scale:
             instances: { min: 0, max: 1 }
             cpu: "0.5"
             memory: 512Mi
         production:
-          hostname: api.test-composition.sharingexcess.com
+          hostname: api.test.composition.sh
           scale:
             instances: { min: 1, max: 1 }
             cpu: "0.5"
@@ -29,20 +29,20 @@ services:
       dockerfile: apps/client/Dockerfile
       args:
         # Baked at build time — must match the server hostname for the target env
-        VITE_API_URL: https://api.test-composition.staging.sharingexcess.com
+        VITE_API_URL: https://api.test.composition.sh
     ports: ["5173:5173"]
     x-composition:
       watch:
         - apps/client/**
       environments:
         staging:
-          hostname: test-composition.staging.sharingexcess.com
+          hostname: staging.test.composition.sh
           scale:
             instances: { min: 0, max: 1 }
             cpu: "0.5"
             memory: 512Mi
         production:
-          hostname: test-composition.sharingexcess.com
+          hostname: test.composition.sh
           scale:
             instances: { min: 1, max: 1 }
             cpu: "0.5"

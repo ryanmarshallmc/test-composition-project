@@ -23,10 +23,10 @@ docker compose up --build
 
 Platform environments are registered in **project settings** (not in compose). For this repo:
 
-| Environment | Branch       |
-|-------------|--------------|
-| `staging`   | `staging`    |
-| `production`| `main`       |
+| Environment | Branch       | Client hostname              | Server hostname                    |
+|-------------|--------------|------------------------------|------------------------------------|
+| `staging`   | `staging`    | `staging.test.composition.sh`| `api.staging.test.composition.sh`  |
+| `production`| `main`       | `test.composition.sh`        | `api.test.composition.sh`          |
 
 Each service declares per-env settings under `x-composition.environments.<name>`:
 
