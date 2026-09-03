@@ -9,6 +9,8 @@ services:
     x-composition:
       watch:
         - apps/server/**
+      healthcheck:
+        path: /ping
       environments:
         staging:
           hostname: api.staging.test.composition.sh
@@ -28,7 +30,11 @@ services:
       context: .
       dockerfile: apps/client/Dockerfile
       args:
-        # Baked at build time — must match the server hostname for the target env
+        # Vite bakes this at image build time (not runtime). Composition reads
+        # build.args from compose as-is — there are no per-environment build args.
+        # Keep this matching the API hostname for the branch being deployed:
+        #   main    → https://api.test.composition.sh
+        #   staging → https://api.staging.test.composition.sh
         VITE_API_URL: https://api.staging.test.composition.sh
     ports: ["5173:5173"]
     x-composition:
