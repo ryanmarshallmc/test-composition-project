@@ -1,0 +1,5 @@
+{
+  "name": "test-composition-project",
+  "private": true,
+  "workspaces": ["apps/*"]
+}

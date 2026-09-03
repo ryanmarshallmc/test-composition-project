@@ -1,0 +1,18 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: apps/server/Dockerfile
+    ports:
+      - '3000:3000'
+
+  client:
+    build:
+      context: .
+      dockerfile: apps/client/Dockerfile
+      args:
+        VITE_API_URL: http://localhost:3000
+    ports:
+      - '5173:5173'
+    depends_on:
+      - server
