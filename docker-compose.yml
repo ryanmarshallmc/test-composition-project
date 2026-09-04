@@ -36,7 +36,7 @@ services:
         #   main    → https://api.test.composition.sh
         #   staging → https://api.staging.test.composition.sh
         VITE_API_URL: https://api.test.composition.sh
-    ports: ["5173:5173"]
+    ports: ["8080:80"]
     x-composition:
       watch:
         - apps/client/**

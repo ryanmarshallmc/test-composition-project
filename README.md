@@ -17,7 +17,7 @@ docker compose up --build
 ```
 
 - Server: http://localhost:3000/ping
-- Client: http://localhost:5173
+- Client: http://localhost:8080
 
 ## Composition
 
@@ -35,7 +35,7 @@ Platform environments are registered in **project settings** (not in compose). F
 | Public URLs / TLS / domain mapping | `x-composition.environments.<env>.hostname` on each service | ✓ set on `client` and `server` |
 | Git-sync watch paths | `x-composition.watch` | ✓ `apps/client/**`, `apps/server/**` |
 | Scale / CPU / memory | `x-composition.environments.<env>.scale` | ✓ per env |
-| Container port | Compose `ports` (first mapping) | ✓ `3000`, `5173` |
+| Container port | Compose `ports` (first mapping) | ✓ `3000`, `80` (client published as `8080:80` locally) |
 | Vite API base URL (build-time) | `build.args.VITE_API_URL` on `client` only | ✓ branch-specific (see below) |
 | Server runtime port | Cloud Run sets `PORT`; server reads `process.env.PORT` | ✓ |
 
